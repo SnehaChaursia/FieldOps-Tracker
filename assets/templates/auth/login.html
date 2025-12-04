@@ -2,34 +2,63 @@
 <html>
 <head>
   <title>Login</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #eef1f5;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: flex-start;   /* move content from top */
       align-items: center;
       height: 100vh;
       margin: 0;
+      padding-top: 60px;   /* space from top */
     }
+
+    /* Heading above box */
+    .main-title {
+      text-align: center;
+      margin-bottom: 40px;   /* reduce huge gap */
+      color: #1e293b;
+    }
+    .main-title h1 {
+      margin: 0;             /* fixed wrong margin */
+      font-size: 40px;
+      font-weight: 700;
+    }
+
     .login-card {
       background: #fff;
       padding: 28px;
       width: 360px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
     }
-    h2 {
+
+    .login-card h2 {
       text-align: center;
       margin-bottom: 20px;
+      color: #1f2937;
+      font-weight: 600;
     }
+
     input {
       width: 100%;
       padding: 10px;
       margin: 8px 0 16px;
       border-radius: 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 15px;
     }
+
+    input:focus {
+      border-color: #2563eb;
+      outline: none;
+      background: #fff;
+    }
+
     button {
       width: 100%;
       padding: 10px;
@@ -39,13 +68,30 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
+      font-weight: 600;
     }
     button:hover {
       background: #1e40af;
     }
+
+    /* Demo box */
+    .demo-box {
+      margin-top: 16px;
+      background: linear-gradient(#6847c2ff, #9c4cd1ff);
+      padding: 10px;
+      border-radius: 6px;
+      width: 360px;
+      font-size: 14px;
+      color: #e6e9eeff;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Heading Above -->
+  <div class="main-title">
+    <h1>Welcome to Asset Manager</h1>
+  </div>
 
   <div class="login-card">
     <h2>Login</h2>
@@ -60,6 +106,13 @@
       {{ form.password }}
       <button type="submit">Login</button>
     </form>
+  </div>
+
+  <!-- Demo Credentials -->
+  <div class="demo-box">
+    <b>Demo Username:</b> admin_user  
+    <br>
+    <b>Password:</b> password
   </div>
 
 </body>
