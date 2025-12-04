@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <title>Reservations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0 20px 40px;
+    }
+    nav {
+      background: #1f2933;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 -20px 20px;
+    }
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      margin-right: 12px;
+      font-size: 14px;
+    }
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    h1 {
+      color: #111827;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'dashboard' %}">Home</a> |
+    <a href="{% url 'asset_list' %}">Assets</a> |
+    <a href="{% url 'add_asset' %}">Add Asset</a> |
+    <a href="{% url 'reservation_list' %}">Reservations</a> |
+    <a href="{% url 'add_reservation' %}">Add Reservation</a>
+  </nav>
+
+  <h1>Reservations</h1>
+  <table>
+    <tr><th>Asset</th><th>User</th><th>Check-in</th><th>Check-out</th><th>Status</th><th>Action</th></tr>
+    {% for r in reservations %}
+      <tr>
+        <td>{{ r.asset.name }}</td>
+        <td>{{ r.user_name }}</td>
+        <td>{{ r.check_in }}</td>
+        <td>{{ r.check_out }}</td>
+        <td>{{ r.status }}</td>
+        <td>
+          {% if r.status == "booked" %}
+            <a href="{% url 'checkout_reservation' r.pk %}">Checkout</a>
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

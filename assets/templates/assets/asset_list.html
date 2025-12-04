@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+  <title>Assets</title>
+  <style>
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #eef1f5;
+    margin: 0;
+    padding: 0 20px 40px;
+  }
+
+  nav { 
+    background: #111827;
+    color: #fff;
+    padding: 14px 24px;
+    margin: 0 -20px 30px -20px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    font-size: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+
+  nav a {
+    color: #d1d5db;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+  nav a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  h1 {
+    color: #1f2937;
+    margin-bottom: 20px;
+    font-size: 26px;
+    text-align: center;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  th {
+    background: #f3f4f6;
+    padding: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+    text-align: left;   /* alignment fixed */
+  }
+
+  td {
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  tr:hover td {
+    background: #f9fafb;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* --- BUTTON STYLES --- */
+
+  .btn-view {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #3b82f6;       /* light blue */
+    color: #fff;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-view:hover {
+    background: #2563eb;
+  }
+
+  .btn-edit {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #a855f7;       /* light purple */
+    color: #fff;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-edit:hover {
+    background: #9333ea;
+  }
+
+  .btn-delete {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #f87171;       /* light red */
+    color: #fff;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-delete:hover {
+    background: #ef4444;
+  }
+</style>
+
+
+</head>
+<body>
+  <nav>
+    <a href="{% url 'dashboard' %}">Home</a> |
+    <a href="{% url 'asset_list' %}">Assets</a> |
+    <a href="{% url 'add_asset' %}">Add Asset</a> |
+    <a href="{% url 'reservation_list' %}">Reservations</a> |
+    <a href="{% url 'add_reservation' %}">Add Reservation</a>
+  </nav>
+
+  <h1>All Assets</h1>
+  <table>
+    <tr><th>Name</th><th>Serial</th><th>Category</th><th>Status</th><th>Actions</th></tr>
+    {% for a in assets %}
+    <tr>
+      <td>{{ a.name }}</td>
+      <td>{{ a.serial_number }}</td>
+      <td>{{ a.category }}</td>
+      <td>{{ a.status }}</td>
+
+ <td>
+    <a href="{% url 'asset_detail' a.pk %}">
+    <button class="btn-view">View</button>
+    </a>
+
+    <a href="{% url 'edit_asset' a.pk %}">
+    <button class="btn-edit">Edit</button>
+    </a>
+
+    <form action="{% url 'delete_asset' a.pk %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn-delete" onclick="return confirm('Delete?')">Delete</button>
+  </form>
+ </td>
+    </tr>
+    {% empty %}
+      <tr><td colspan="5">No assets found.</td></tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

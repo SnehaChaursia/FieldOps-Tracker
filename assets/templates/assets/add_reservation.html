@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0 20px 40px;
+        }
+        nav {
+            background: #1f2933;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 0 -20px 20px;
+        }
+        nav a {
+            color: #e5e7eb;
+            text-decoration: none;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+        nav a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; color: #111827; }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 2px;
+            border-radius: 5px;
+            border: 1px solid #d1d5db;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            background: #2563eb;
+            padding: 10px;
+            border: none;
+            color: white;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #1d4ed8; }
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a href="{% url 'dashboard' %}">Home</a> |
+    <a href="{% url 'asset_list' %}">Assets</a> |
+    <a href="{% url 'add_asset' %}">Add Asset</a> |
+    <a href="{% url 'reservation_list' %}">Reservations</a> |
+    <a href="{% url 'add_reservation' %}">Add Reservation</a>
+</nav>
+
+<div class="container">
+    <h1>Add Reservation</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Asset dropdown -->
+        <label>Asset</label>
+        <select name="asset" required>
+            <option value="">-- Select Asset --</option>
+            {% for a in assets %}
+                <option value="{{ a.id }}">{{ a.name }} ({{ a.serial_number }})</option>
+            {% endfor %}
+        </select>
+
+       <label>Enter Username:</label>
+        <input type="text" name="user_name" placeholder="Enter user name" required>
+
+        <!-- Check-in date with DATETIME PICKER -->
+        <label>Check-in Date & Time</label>
+        <input type="datetime-local" name="checkin_date" required>
+
+        <!-- Number of days -->
+        <label>Days</label>
+        <input name="days" type="number" min="1" value="1" required>
+
+        <button type="submit">Book Reservation</button>
+    </form>
+
+</div>
+
+</body>
+</html>

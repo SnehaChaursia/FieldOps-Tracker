@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <title>Edit Asset</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0 20px 40px;
+    }
+    nav {
+      background: #1f2933;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 -20px 20px;
+    }
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      margin-right: 12px;
+      font-size: 14px;
+    }
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    h1 {
+      color: #111827;
+    }
+    .form-card {
+      max-width: 480px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+    input[type="text"],
+    select,
+    input[type="file"] {
+      width: 100%;
+      padding: 7px 8px;
+      border-radius: 5px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 16px;
+      padding: 8px 14px;
+      border-radius: 5px;
+      border: none;
+      background: #2563eb;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'dashboard' %}">Home</a> |
+    <a href="{% url 'asset_list' %}">Assets</a> |
+    <a href="{% url 'add_asset' %}">Add Asset</a> |
+    <a href="{% url 'reservation_list' %}">Reservations</a> |
+    <a href="{% url 'add_reservation' %}">Add Reservation</a>
+  </nav>
+
+  <h1>Edit Asset</h1>
+  <div class="form-card">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label>Name</label>
+      <input name="name" value="{{ asset.name }}">
+
+      <label>Serial</label>
+      <input name="serial_number" value="{{ asset.serial_number }}">
+
+      <label>Category</label>
+      <input name="category" value="{{ asset.category }}">
+
+      <label>Location</label>
+      <input name="location" value="{{ asset.location }}">
+
+      <label>Status</label>
+      <select name="status">
+        <option value="available" {% if asset.status == 'available' %}selected{% endif %}>Available</option>
+        <option value="unavailable" {% if asset.status == 'unavailable' %}selected{% endif %}>Unavailable</option>
+        <option value="checked_out" {% if asset.status == 'checked_out' %}selected{% endif %}>Checked Out</option>
+      </select>
+
+      <label>Image</label>
+      <input type="file" name="image">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+</html>

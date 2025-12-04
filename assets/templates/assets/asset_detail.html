@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+  <title>Asset Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0 20px 40px;
+    }
+    nav {
+      background: #1f2933;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 -20px 20px;
+    }
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      margin-right: 12px;
+      font-size: 14px;
+    }
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    h1 {
+      color: #111827;
+    }
+    .card {
+      max-width: 480px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .card img {
+      border-radius: 6px;
+      border: 1px solid #e5e7eb;
+    }
+    .actions {
+      margin-top: 12px;
+    }
+    .actions a {
+      padding: 6px 10px;
+      border-radius: 4px;
+      background: #2563eb;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .actions a:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'dashboard' %}">Home</a> |
+    <a href="{% url 'asset_list' %}">Assets</a> |
+    <a href="{% url 'add_asset' %}">Add Asset</a> |
+    <a href="{% url 'reservation_list' %}">Reservations</a> |
+    <a href="{% url 'add_reservation' %}">Add Reservation</a>
+  </nav>
+
+  <h1>Asset: {{ asset.name }}</h1>
+  <div class="card">
+    <p><strong>Serial:</strong> {{ asset.serial_number }}</p>
+    <p><strong>Category:</strong> {{ asset.category }}</p>
+    <p><strong>Location:</strong> {{ asset.location }}</p>
+    <p><strong>Status:</strong> {{ asset.status }}</p>
+    <p><strong>Created:</strong> {{ asset.created_at }}</p>
+
+    {% if asset.image %}
+      <p><img src="{{ asset.image.url }}" style="max-width:200px"></p>
+    {% endif %}
+
+    {% if asset.qr_code %}
+      <p><img src="{{ asset.qr_code.url }}" style="max-width:200px"></p>
+    {% endif %}
+
+    <div class="actions">
+      <a href="{% url 'edit_asset' asset.pk %}">Edit</a>
+    </div>
+  </div>
+</body>
+</html>

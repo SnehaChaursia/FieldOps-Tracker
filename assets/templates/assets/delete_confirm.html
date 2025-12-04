@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <title>Delete Asset</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0 20px 40px;
+    }
+    nav {
+      background: #1f2933;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 -20px 20px;
+    }
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      margin-right: 12px;
+      font-size: 14px;
+    }
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    h1 {
+      color: #b91c1c;
+    }
+    .confirm-card {
+      max-width: 420px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    button {
+      padding: 8px 14px;
+      border-radius: 5px;
+      border: none;
+      background: #dc2626;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+    button:hover {
+      background: #b91c1c;
+    }
+    .cancel-link {
+      font-size: 14px;
+      text-decoration: none;
+      color: #374151;
+    }
+    .cancel-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'dashboard' %}">Home</a> |
+    <a href="{% url 'asset_list' %}">Assets</a> |
+    <a href="{% url 'add_asset' %}">Add Asset</a> |
+    <a href="{% url 'reservation_list' %}">Reservations</a> |
+    <a href="{% url 'add_reservation' %}">Add Reservation</a>
+  </nav>
+
+  <h1>Confirm delete {{ asset.name }}</h1>
+  <div class="confirm-card">
+    <p>Are you sure you want to permanently delete this asset?</p>
+    <form method="post">{% csrf_token %}
+      <button type="submit">Yes, delete</button>
+      <a href="{% url 'asset_list' %}" class="cancel-link">Cancel</a>
+    </form>
+  </div>
+</body>
+</html>
