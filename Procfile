@@ -1,1 +1,1 @@
-web: gunicorn field-ops.wsgi
+gunicorn fieldops_project.wsgi:application
