@@ -30,7 +30,7 @@ This system digitizes asset tracking by enabling QR scanning, real-time GPS upda
 **Backend:** Django, Django REST Framework  
 **Frontend:** HTML, CSS, Bootstrap, JavaScript  
 **Database:** SQLite  
-**Libraries:** python-qrcode, html5-qrcode, Leaflet.js  
+**Libraries:** python-qrcode, html5-qrcode, pillow, canvas.  
 **Deployment:** Render  
 
 ---
